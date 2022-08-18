@@ -17,7 +17,7 @@
     <license>Apache 2.0</license>
 
     <preference name="APP_ID" />
-    <preference name="APP_NAME" />
+    <preference name="CLIENT_TOKEN" />
 
     <engines>
         <!-- Requires > 3.5.0 because of the custom Framework tag for iOS [CB-6698] -->
@@ -48,19 +48,34 @@
         <source-file src="src/android/facebookconnect.xml" target-dir="res/values" />
         <config-file target="res/values/facebookconnect.xml" parent="/*">
             <string name="fb_app_id">$APP_ID</string>
-            <string name="fb_app_name">$APP_NAME</string>
+            <string name="fb_login_protocol_scheme ">fb1234</string>
+            <string name="facebook_client_token">$CLIENT_TOKEN</string>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="application">
             <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/fb_app_id"/>
-            <meta-data android:name="com.facebook.sdk.ApplicationName" android:value="@string/fb_app_name" />
+            <meta-data android:name="com.facebook.sdk.ApplicationName" android:value="@string/app_name" />
+            <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token" />
             <activity android:name="com.facebook.FacebookActivity"
-              android:theme="@android:style/Theme.Translucent.NoTitleBar"
-              android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-              android:label="@string/fb_app_name" />
+                android:configChanges=
+                    "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:label="@string/app_name" />
+            <activity
+                android:name="com.facebook.CustomTabActivity"
+                android:exported="true">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+                    <data android:scheme="@string/fb_login_protocol_scheme" />
+                </intent-filter>
+            </activity>
+
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
         </config-file>
 
-        <framework src="com.facebook.android:facebook-android-sdk:4.14.+"/>
+        <framework src="com.facebook.android:facebook-android-sdk:latest.release"/>
 
         <!-- cordova plugin src files -->
         <source-file src="src/android/ConnectPlugin.java" target-dir="src/org/apache/cordova/facebook" />
@@ -94,7 +109,7 @@
         </config-file>
 
         <config-file target="*-Info.plist" parent="FacebookDisplayName">
-            <string>$APP_NAME</string>
+            <string>APP_NAME</string>
         </config-file>
 
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
