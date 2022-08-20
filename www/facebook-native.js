@@ -4,10 +4,6 @@ exports.getLoginStatus = function getLoginStatus (s, f) {
   exec(s, f, 'FacebookConnectPlugin', 'getLoginStatus', [])
 }
 
-exports.showDialog = function showDialog (options, s, f) {
-  exec(s, f, 'FacebookConnectPlugin', 'showDialog', [options])
-}
-
 exports.login = function login (permissions, s, f) {
   exec(s, f, 'FacebookConnectPlugin', 'login', permissions)
 }
@@ -37,24 +33,7 @@ exports.logout = function logout (s, f) {
   exec(s, f, 'FacebookConnectPlugin', 'logout', [])
 }
 
-exports.api = function api (graphPath, permissions, s, f) {
-  permissions = permissions || []
-  exec(s, f, 'FacebookConnectPlugin', 'graphApi', [graphPath, permissions])
-}
-
-exports.appInvite = function appLinks (options, s, f) {
-  options = options || {}
-  exec(s, f, 'FacebookConnectPlugin', 'appInvite', [options])
-}
-
-exports.getDeferredApplink = function (s, f) {
-  exec(s, f, 'FacebookConnectPlugin', 'getDeferredApplink', [])
-}
-
 exports.activateApp = function (s, f) {
   exec(s, f, 'FacebookConnectPlugin', 'activateApp', [])
 }
 
-exports.getDeferredApplink = function (s, f) {
-	  exec(s, f, 'FacebookConnectPlugin', 'getDeferredApplink', [])
-}
